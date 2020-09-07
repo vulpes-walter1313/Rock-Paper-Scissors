@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <title>Rock Paper Scissors</title>
+  </head>
+  <body>
+    <main>
+      <div class="game-titles">
+        <h1>Rock-Paper-Scissors</h1>
+        <p>Let's Play!</p>
+      </div>
+      <div class="choice-buttons">
+        <button type="button" name="Rock" value="rock">Rock</button>
+        <button type="button" name="Paper" value="paper">Paper</button>
+        <button type="button" name="Scissors" value="scissors">Scissors</button>
+      </div>
+    </main>
+    <script>
+    // declare variable of player wins
+    let compWins = 0;
+    // declare variable of computer wins
+    let playerWins = 0;
+
+      function computerPlay() {
+        // Randomly chose between Rock, Paper, or Scissors
+        const compChoice = Math.floor(Math.random() * 3) ;
+        let result;
+
+        switch (compChoice) {
+          case 0:
+            result = 'rock';
+            break;
+
+          case 1:
+            result = 'paper';
+            break;
+          case 2:
+            result = 'scissors';
+        }
+
+        return result;
+      }
+
+      function playRound(playerSelection, computerSelection) {
+        // compares the player's joice vs computer's choice and returns
+        // a string whether you win or lose the round.
+        switch (playerSelection) {
+          case 'rock':
+            if (computerSelection === 'paper') {
+              compWins++;
+              return "You lose! Paper beats Rock!";
+            } else if (computerSelection === 'scissors') {
+              playerWins++;
+              return 'You win! Rock beats Scissors!';
+            } else {
+              // Implied that Computer's choice is rock
+              return "T'was a Tie! You both selected Rock!";
+            }
+            break;
+
+            case 'paper':
+              if (computerSelection === 'paper') {
+                return "T'was a Tie! You both selected Rock!";
+              } else if (computerSelection === 'scissors') {
+                compWins++;
+                return 'You lose! Scissors beats Paper!';
+              } else {
+                // implied that computers choice is rock
+                playerWins++;
+                return "You Win! Paper beats Rock!";
+              }
+              break;
+
+              case 'scissors':
+                if (computerSelection === 'paper') {
+                  playerWins++;
+                  return "You Win! Scissors beats Paper!";
+                } else if (computerSelection === 'scissors') {
+                  return "T'was a Tie! You both selected Scissors!";
+                } else {
+                  // implied that computers choice is rock
+                  compWins++;
+                  return "You Lose! Rock beats Scissors";
+                }
+                break;
+              default:
+              // this is in the event the user inputs anything other than the choices
+                return "You didn't choose an appropriate choice.\nReload and try again";
+        }
+      }
+
+      function game(){
+
+        // for loop to loop 5 times
+        for (var i=0; i<5; i++) {
+          let playerChoice = prompt("What is your choice(please type 'rock', 'paper', or 'scissors'): ").toLowerCase();
+          console.log(`Round: ${i+1}\nYour Choice: ${playerChoice}`);
+
+          let computerChoice = computerPlay();
+          console.log(`Comp's choice: ${computerChoice}`);
+          console.log(playRound(playerChoice, computerChoice));
+        }
+
+        if (playerWins == compWins) {
+          console.log(`T'was a Final Tie!\nPlayer: ${playerWins}\nComputer: ${compWins}`);
+        } else if (playerWins > compWins) {
+          console.log(`You Win The Match!\nPlayer: ${playerWins}\nComputer: ${compWins}`);
+        } else {
+          console.log(`You Lose The Match!\nPlayer: ${playerWins}\nComputer: ${compWins}`);
+        }
+
+      }
+
+      // game();
+      const btns = document.querySelectorAll('button');
+      btns.forEach(button => {
+        button.addEventListener('click', () => playerChoice = button.value);
+      });
+
+    </script>
+  </body>
+</html>
