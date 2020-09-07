@@ -7,7 +7,7 @@
     <title>Rock Paper Scissors</title>
   </head>
   <body>
-    <main>
+    <main class="main-center">
       <div class="game-titles">
         <h1>Rock-Paper-Scissors</h1>
         <p>Let's Play!</p>
@@ -17,12 +17,16 @@
         <button type="button" name="Paper" value="paper">Paper</button>
         <button type="button" name="Scissors" value="scissors">Scissors</button>
       </div>
+      <div class="results">
+      </div>
     </main>
     <script>
     // declare variable of player wins
     let compWins = 0;
     // declare variable of computer wins
     let playerWins = 0;
+    // Declares players choice as a variable
+    let playerChoice;
 
       function computerPlay() {
         // Randomly chose between Rock, Paper, or Scissors
@@ -63,7 +67,7 @@
 
             case 'paper':
               if (computerSelection === 'paper') {
-                return "T'was a Tie! You both selected Rock!";
+                return "T'was a Tie! You both selected Paper!";
               } else if (computerSelection === 'scissors') {
                 compWins++;
                 return 'You lose! Scissors beats Paper!';
@@ -94,32 +98,21 @@
 
       function game(){
 
-        // for loop to loop 5 times
-        for (var i=0; i<5; i++) {
-          let playerChoice = prompt("What is your choice(please type 'rock', 'paper', or 'scissors'): ").toLowerCase();
-          console.log(`Round: ${i+1}\nYour Choice: ${playerChoice}`);
-
-          let computerChoice = computerPlay();
-          console.log(`Comp's choice: ${computerChoice}`);
-          console.log(playRound(playerChoice, computerChoice));
-        }
-
-        if (playerWins == compWins) {
-          console.log(`T'was a Final Tie!\nPlayer: ${playerWins}\nComputer: ${compWins}`);
-        } else if (playerWins > compWins) {
-          console.log(`You Win The Match!\nPlayer: ${playerWins}\nComputer: ${compWins}`);
-        } else {
-          console.log(`You Lose The Match!\nPlayer: ${playerWins}\nComputer: ${compWins}`);
-        }
-
+        const btns = document.querySelectorAll('button');
+        btns.forEach(button => {
+          // console.log(button.value);
+          button.addEventListener('click', () => {
+            playerChoice = button.value;
+            let computerChoice = computerPlay();
+            // console.log(`Comp's choice: ${computerChoice}`);
+            // console.log(playRound(playerChoice, computerChoice));
+            const resultDisplay = document.querySelector('.results');
+            resultDisplay.textContent = playRound(playerChoice, computerChoice);
+            resultDisplay.textContent += `\n\nComp's choice: ${computerChoice}`;
+          }
+        )});
       }
-
-      // game();
-      const btns = document.querySelectorAll('button');
-      btns.forEach(button => {
-        button.addEventListener('click', () => playerChoice = button.value);
-      });
-
+      game();
     </script>
   </body>
 </html>
