@@ -89,3 +89,8 @@ button {
   flex-flow: column nowrap;
   align-items: center;
 }
+.result {
+  border: 3px black solid;
+  margin: .5em 1em;
+  padding: 0 .5rem;
+}
