@@ -4,6 +4,8 @@ let compWins = 0;
 let playerWins = 0;
 // Declares players choice as a variable
 let playerChoice;
+// counts the number of rounds
+let roundCounter = 0;
 
 function computerPlay() {
   // Randomly chose between Rock, Paper, or Scissors
@@ -32,25 +34,31 @@ function playRound(playerSelection, computerSelection) {
     case 'rock':
       if (computerSelection === 'paper') {
         compWins++;
+        roundCounter++;
         return "You lose! Paper beats Rock!";
       } else if (computerSelection === 'scissors') {
         playerWins++;
+        roundCounter++;
         return 'You win! Rock beats Scissors!';
       } else {
         // Implied that Computer's choice is rock
+        roundCounter++;
         return "T'was a Tie! You both selected Rock!";
       }
       break;
 
       case 'paper':
         if (computerSelection === 'paper') {
+          roundCounter++;
           return "T'was a Tie! You both selected Paper!";
         } else if (computerSelection === 'scissors') {
           compWins++;
+          roundCounter++;
           return 'You lose! Scissors beats Paper!';
         } else {
           // implied that computers choice is rock
           playerWins++;
+          roundCounter++;
           return "You Win! Paper beats Rock!";
         }
         break;
@@ -58,11 +66,14 @@ function playRound(playerSelection, computerSelection) {
         case 'scissors':
           if (computerSelection === 'paper') {
             playerWins++;
+            roundCounter++;
             return "You Win! Scissors beats Paper!";
           } else if (computerSelection === 'scissors') {
+            roundCounter++;
             return "T'was a Tie! You both selected Scissors!";
           } else {
             // implied that computers choice is rock
+            roundCounter++;
             compWins++;
             return "You Lose! Rock beats Scissors";
           }
@@ -83,9 +94,18 @@ function game(){
       let computerChoice = computerPlay();
       // console.log(`Comp's choice: ${computerChoice}`);
       // console.log(playRound(playerChoice, computerChoice));
-      const resultDisplay = document.querySelector('.results');
+      const resultDisplay = document.querySelector('#round-result');
       resultDisplay.textContent = playRound(playerChoice, computerChoice);
-      resultDisplay.textContent += `\n\nComp's choice: ${computerChoice}`;
+      resultDisplay.classList.add("result");
+      const playerChoiceDisplay = document.querySelector("#player-choice");
+      playerChoiceDisplay.textContent = `Player's choice: ${playerChoice}`;
+      playerChoiceDisplay.classList.add("result");
+      const computerChoiceDisplay = document.querySelector("#computer-choice");
+      computerChoiceDisplay.textContent = `Comp's choice: ${computerChoice}`;
+      computerChoiceDisplay.classList.add("result");
+      const roundCounterDisplay = document.querySelector("#round-counter");
+      roundCounterDisplay.textContent = `Round: ${roundCounter}`;
+      roundCounterDisplay.classList.add("result");
     }
   )});
 }
