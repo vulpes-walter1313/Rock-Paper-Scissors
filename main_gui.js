@@ -112,7 +112,7 @@ function play(value) {
        alert(`You've won with ${playerWins} over Computer's ${compWins}!`);
        gameReset();
     } else {
-      alert(`Ya lost homie, You got beat by Chad's ${compWins} over your virgin ${playerWins}!`);
+      alert(`Ya lost, You got beat by Computer's ${compWins} over your ${playerWins} wins!`);
       gameReset();
     }
   }
