@@ -84,29 +84,63 @@ function playRound(playerSelection, computerSelection) {
   }
 }
 
-function game(){
+function play(value) {
+  playerChoice = value;
+  let computerChoice = computerPlay();
 
+  const resultDisplay = document.querySelector('#round-result');
+  resultDisplay.textContent = playRound(playerChoice, computerChoice);
+  resultDisplay.classList.add("result");
+
+  const playerChoiceDisplay = document.querySelector("#player-choice");
+  playerChoiceDisplay.textContent = `Player's choice: ${playerChoice}`;
+  playerChoiceDisplay.classList.add("result");
+
+  const computerChoiceDisplay = document.querySelector("#computer-choice");
+  computerChoiceDisplay.textContent = `Comp's choice: ${computerChoice}`;
+  computerChoiceDisplay.classList.add("result");
+
+  const roundCounterDisplay = document.querySelector("#round-counter");
+  roundCounterDisplay.textContent = `Round: ${roundCounter}`;
+  roundCounterDisplay.classList.add("result");
+
+  if (roundCounter >= 5) {
+    if (playerWins == compWins) {
+      alert(`T'was a tie with ${playerWins} each.`);
+      gameReset();
+    } else if (playerWins > compWins) {
+       alert(`You've won with ${playerWins} over Computer's ${compWins}!`);
+       gameReset();
+    } else {
+      alert(`Ya lost homie, You got beat by Chad's ${compWins} over your virgin ${playerWins}!`);
+      gameReset();
+    }
+  }
+}
+
+function gameReset() {
+  roundCounter = 0;
+  compWins = 0;
+  playerWins = 0;
+  const resultDisplay = document.querySelector('#round-result');
+  resultDisplay.textContent = ''
+  resultDisplay.classList.remove("result");
+  const playerChoiceDisplay = document.querySelector("#player-choice");
+  playerChoiceDisplay.textContent = "";
+  playerChoiceDisplay.classList.remove("result");
+  const computerChoiceDisplay = document.querySelector("#computer-choice");
+  computerChoiceDisplay.textContent = "";
+  computerChoiceDisplay.classList.remove("result");
+  const roundCounterDisplay = document.querySelector("#round-counter");
+  roundCounterDisplay.textContent = "";
+  roundCounterDisplay.classList.remove("result");
+}
+
+function game(){
   const btns = document.querySelectorAll('button');
   btns.forEach(button => {
     // console.log(button.value);
-    button.addEventListener('click', () => {
-      playerChoice = button.value;
-      let computerChoice = computerPlay();
-      // console.log(`Comp's choice: ${computerChoice}`);
-      // console.log(playRound(playerChoice, computerChoice));
-      const resultDisplay = document.querySelector('#round-result');
-      resultDisplay.textContent = playRound(playerChoice, computerChoice);
-      resultDisplay.classList.add("result");
-      const playerChoiceDisplay = document.querySelector("#player-choice");
-      playerChoiceDisplay.textContent = `Player's choice: ${playerChoice}`;
-      playerChoiceDisplay.classList.add("result");
-      const computerChoiceDisplay = document.querySelector("#computer-choice");
-      computerChoiceDisplay.textContent = `Comp's choice: ${computerChoice}`;
-      computerChoiceDisplay.classList.add("result");
-      const roundCounterDisplay = document.querySelector("#round-counter");
-      roundCounterDisplay.textContent = `Round: ${roundCounter}`;
-      roundCounterDisplay.classList.add("result");
-    }
-  )});
+    button.addEventListener('click',() => play(button.value))
+  });
 }
 game();
